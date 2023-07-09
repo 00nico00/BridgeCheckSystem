@@ -30,6 +30,8 @@ public:
 
 	void clearEdits();
 
+	void receive_BRD_info(const BRD& info);
+
 private:
 	Ui::BRDWidgetClass ui;
 };

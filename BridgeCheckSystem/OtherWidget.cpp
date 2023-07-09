@@ -58,3 +58,9 @@ void OtherWidget::clearEdits() {
 	ui.bridgeEngineerEdit->clear();
 	ui.cardFillerEdit->clear();
 }
+
+void OtherWidget::receive_Other_info(const Other& info) {
+	ui.bridgeEngineerEdit->setText(info.getBridgeEngineer());
+	ui.cardFillerEdit->setText(info.getCardFiller());
+	ui.cardTimeEdit->setDateTime(info.getCardTime());
+}

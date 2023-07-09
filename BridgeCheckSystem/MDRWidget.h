@@ -30,6 +30,8 @@ public:
 
 	void clearEdits();
 
+	void receive_MDR_info(const MDR& info);
+
 private:
 	Ui::MDRWidgetClass ui;
 };

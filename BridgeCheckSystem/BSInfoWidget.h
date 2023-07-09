@@ -30,6 +30,8 @@ public:
 
 	void clearEdits();
 
+	void receive_BSInfo_info(const BSInfo& info);
+
 private:
 	Ui::BSInfoWidgetClass ui;
 };

@@ -64,3 +64,17 @@ void BRDWidget::closeEvent(QCloseEvent* event) {
 void BRDWidget::clearEdits() {
 	ui.otherArchiveEdit->clear();
 }
+
+void BRDWidget::receive_BRD_info(const BRD& info) {
+	ui.designDrawingsOption->setCurrentText(BRD::BRDtypeToStr[info.getDesignDrawings()]);
+	ui.designDocOption->setCurrentText(BRD::BRDtypeToStr[info.getDesignDoc()]);
+	ui.recordDrawingsOption->setCurrentText(BRD::BRDtypeToStr[info.getRecordDrawings()]);
+	ui.acceptanceDocOption->setCurrentText(BRD::BRDtypeToStr[info.getAcceptanceDoc()]);
+	ui.ADDocOption->setCurrentText(BRD::BRDtypeToStr[info.getADDoc()]);
+	ui.PMSOption->setCurrentText(BRD::BRDtypeToStr[info.getPMS()]);
+	ui.SISOption->setCurrentText(BRD::BRDtypeToStr[info.getSIS()]);
+	ui.RRROption->setCurrentText(BRD::BRDtypeToStr[info.getRRR()]);
+	ui.otherArchiveEdit->setText(info.getOtherArchive());
+	ui.archiveTypeOption->setCurrentText(BRD::archiveTypeToStr[info.getArchiveType()]);
+	ui.filingDateEdit->setDateTime(info.getFilingDate());
+}

@@ -30,6 +30,8 @@ public:
 
 	void clearEdits();
 
+	void receive_Other_info(const Other& info);
+
 private:
 	Ui::OtherWidgetClass ui;
 };

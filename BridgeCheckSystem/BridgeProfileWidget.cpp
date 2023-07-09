@@ -22,6 +22,27 @@ BridgeProfileWidget::BridgeProfileWidget(const QString& mode, QWidget* parent)
 	connect(ui.MDRBtn, &QPushButton::clicked, this, &BridgeProfileWidget::on_MDRBtn_clicked);
 	connect(ui.OtherBtn, &QPushButton::clicked, this, &BridgeProfileWidget::on_OtherBtn_clicked);
 
+	// delete
+	connect(ui.deleteBtn, &QPushButton::clicked,
+		[this] {
+			auto id = (*admid_).getBridgeNumber();
+
+			BTIDao::deleteBTI(id);
+			BSInfoDao::deleteBSInfo(id);
+			BRDDao::deleteBRD(id);
+			BMAHDao::deleteBMAH(id);
+			MDRDao::deleteMDR(id);
+			OtherDao::deleteOther(id);
+			ADMIDDao::deleteADMID(id);
+
+			emit trigger_reloadBridgeNames();
+
+			clearInfo();
+
+			this->close();
+		}
+	);
+
 	if (mode_ == "new") {
 		connect(ui.saveBtn, &QPushButton::clicked,
 			[this] {
@@ -40,6 +61,8 @@ BridgeProfileWidget::BridgeProfileWidget(const QString& mode, QWidget* parent)
 				BMAHDao::insertBMAH(id, bmah_.value());
 				MDRDao::insertMDR(id, mdr_.value());
 				OtherDao::insertOther(id, other_.value());
+
+				emit trigger_reloadBridgeNames();
 
 				clearInfo();
 
@@ -64,6 +87,8 @@ BridgeProfileWidget::BridgeProfileWidget(const QString& mode, QWidget* parent)
 				BMAHDao::updateBMAH(id, bmah_.value());
 				MDRDao::updateMDR(id, mdr_.value());
 				OtherDao::updateOther(id, other_.value());
+
+				emit trigger_reloadBridgeNames();
 
 				clearInfo();
 
@@ -116,6 +141,11 @@ void BridgeProfileWidget::on_BSInfoBtn_clicked() {
 	widget->setWindowModality(Qt::ApplicationModal);
 	connect(widget, &BSInfoWidget::send_BSInfo_Info, this, &BridgeProfileWidget::receive_BSInfo_Info);
 
+	connect(this, &BridgeProfileWidget::send_BSInfo_info, widget, &BSInfoWidget::receive_BSInfo_info);
+	if (bsinfo_) {
+		emit send_BSInfo_info(bsinfo_.value());
+	}
+
 	widget->show();
 }
 
@@ -123,6 +153,11 @@ void BridgeProfileWidget::on_BRDBtn_clicked() {
 	BRDWidget* widget = new BRDWidget();
 	widget->setWindowModality(Qt::ApplicationModal);
 	connect(widget, &BRDWidget::send_BRD_Info, this, &BridgeProfileWidget::receive_BRD_Info);
+
+	connect(this, &BridgeProfileWidget::send_BRD_info, widget, &BRDWidget::receive_BRD_info);
+	if (brd_) {
+		emit send_BRD_info(brd_.value());
+	}
 
 	widget->show();
 }
@@ -132,6 +167,11 @@ void BridgeProfileWidget::on_BMAHBtn_clicked() {
 	widget->setWindowModality(Qt::ApplicationModal);
 	connect(widget, &BMAHWidget::send_BMAH_Info, this, &BridgeProfileWidget::receive_BMAH_Info);
 
+	connect(this, &BridgeProfileWidget::send_BMAH_info, widget, &BMAHWidget::receive_BMAH_info);
+	if (bmah_) {
+		emit send_BMAH_info(bmah_.value());
+	}
+
 	widget->show();
 }
 
@@ -140,6 +180,11 @@ void BridgeProfileWidget::on_MDRBtn_clicked() {
 	widget->setWindowModality(Qt::ApplicationModal);
 	connect(widget, &MDRWidget::send_MDR_Info, this, &BridgeProfileWidget::receive_MDR_Info);
 
+	connect(this, &BridgeProfileWidget::send_MDR_info, widget, &MDRWidget::receive_MDR_info);
+	if (mdr_) {
+		emit send_MDR_info(mdr_.value());
+	}
+
 	widget->show();
 }
 
@@ -147,6 +192,11 @@ void BridgeProfileWidget::on_OtherBtn_clicked() {
 	OtherWidget* widget = new OtherWidget();
 	widget->setWindowModality(Qt::ApplicationModal);
 	connect(widget, &OtherWidget::send_Other_Info, this, &BridgeProfileWidget::receive_Other_Info);
+
+	connect(this, &BridgeProfileWidget::send_Other_info, widget, &OtherWidget::receive_Other_info);
+	if (other_) {
+		emit send_Other_info(other_.value());
+	}
 
 	widget->show();
 }

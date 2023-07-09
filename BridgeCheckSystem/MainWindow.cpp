@@ -13,8 +13,11 @@ MainWindow::MainWindow(QWidget* parent)
 
 	connect(ui.newProfileBtn, &QPushButton::clicked, this, &MainWindow::on_newProfileBtn_clicked);
 	connect(ui.showProfileBtn, &QPushButton::clicked, this, &MainWindow::on_showProfileBtn_clicked);
+	connect(ui.showInitialInspectionBtn, &QPushButton::clicked, this, &MainWindow::on_showInitialInspectionBtn_clicked);
 
 	loadAllBridgeNames();
+
+	connect(ui.bridgeNames, &QComboBox::currentTextChanged, this, &MainWindow::on_bridgeNames_currentTextChanged);
 }
 
 void MainWindow::showAmap() {
@@ -35,6 +38,9 @@ void MainWindow::on_newProfileBtn_clicked() {
 	// send bridge type to bpWidget
 	connect(this, &MainWindow::send_bridgeType, bpWidget, &BridgeProfileWidget::receive_bridgeType);
 	emit send_bridgeType(ui.bridgeTypes->currentText());
+
+	connect(bpWidget, &BridgeProfileWidget::trigger_reloadBridgeNames, this, &MainWindow::reloadBridgeNames);
+
 	bpWidget->show();
 }
 
@@ -56,6 +62,8 @@ void MainWindow::on_showProfileBtn_clicked() {
 		OtherDao::queryOther(bridgeNumber.value()).value()
 	);
 
+	connect(bpWidget, &BridgeProfileWidget::trigger_reloadBridgeNames, this, &MainWindow::reloadBridgeNames);
+
 	bpWidget->show();
 }
 
@@ -66,5 +74,40 @@ void MainWindow::loadAllBridgeNames() {
 		for (int i = 0; i < bridges.value().size(); i++) {
 			ui.bridgeNames->addItem(bridges.value()[i]);
 		}
+	}
+}
+
+void MainWindow::reloadBridgeNames() {
+	loadAllBridgeNames();
+}
+
+void MainWindow::on_bridgeNames_currentTextChanged(const QString& text) {
+	// loadAllBridgeNames()时也会触发，导致悬空引用
+	if (text.isEmpty()) {
+		return;
+	}
+	auto bridgeNumber = ADMIDDao::queryBridgeNumber(text);
+	auto pos = ADMIDDao::queryLnglat(bridgeNumber.value());
+	callJsFunc::jumpTo(webView, pos.value());
+}
+
+void MainWindow::on_showInitialInspectionBtn_clicked() {
+	auto bridgeNumber = ADMIDDao::queryBridgeNumber(ui.bridgeNames->currentText());
+	auto initInspec = InitialInspectionDao::queryInitialInspection(bridgeNumber.value());
+	if (!initInspec) {
+		auto result = QMessageBox::question(this, "注意", "没有找到初始检查表，要新建吗", QMessageBox::Yes | QMessageBox::Cancel);
+		if (result == QMessageBox::Yes) {
+			InitialInspectionWidget* widget = new InitialInspectionWidget("new");
+			widget->setWindowModality(Qt::ApplicationModal);
+			connect(this, &MainWindow::send_bridgeName_new, widget, &InitialInspectionWidget::receive_bridgeName_new);
+			emit send_bridgeName_new(ui.bridgeNames->currentText());
+			widget->show();
+		}
+	} else {
+		InitialInspectionWidget* widget = new InitialInspectionWidget("update");
+		widget->setWindowModality(Qt::ApplicationModal);
+		connect(this, &MainWindow::send_bridgeName_update, widget, &InitialInspectionWidget::receive_bridgeName_udpate);
+		emit send_bridgeName_update(ui.bridgeNames->currentText());
+		widget->show();
 	}
 }

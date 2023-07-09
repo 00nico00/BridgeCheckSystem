@@ -30,6 +30,8 @@ public:
 
 	void clearEdits();
 
+	void receive_BMAH_info(const BMAH& info);
+
 private:
 	Ui::BMAHWidgetClass ui;
 };

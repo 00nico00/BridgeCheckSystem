@@ -76,3 +76,13 @@ void MDRWidget::clearEdits() {
 	ui.fundingSourceEdit->clear();
 	ui.RAQAEdit->clear();
 }
+
+void MDRWidget::receive_MDR_info(const MDR& info) {
+	ui.timeEdit->setDateTime(info.getTime());
+	ui.typeOption->setCurrentText(MDR::remedialActionTypeToStr[info.getType()]);
+	ui.remedialActionReasonEdit->setText(info.getRemedialActionReason());
+	ui.remedialActionScopeEdit->setText(info.getRemedialActionScope());
+	ui.projectCostEdit->setText(QString::number(info.getProjectCost()));
+	ui.fundingSourceEdit->setText(info.getFundingSource());
+	ui.RAQAEdit->setText(info.getRAQA());
+}

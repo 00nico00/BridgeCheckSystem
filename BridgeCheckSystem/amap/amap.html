@@ -29,6 +29,13 @@
             center: [108.784109, 32.88271], //初始化地图中心点
         });
 
+
+        function jumpTo(lng, lat) {
+            let position = new AMap.LngLat(lng, lat);
+            map.setCenter(position);
+            map.setZoom(17);
+        }
+
     </script>
 </body>
 

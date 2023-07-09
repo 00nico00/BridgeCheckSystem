@@ -85,3 +85,20 @@ void BSInfoWidget::clearEdits() {
 		edit->clear();
 	}
 }
+
+void BSInfoWidget::receive_BSInfo_info(const BSInfo& info) {
+	ui.mainGirderEdit->setText(info.getMainGirder());
+	ui.mainArchRibEdit->setText(info.getMainArchRib());
+	ui.bridgeTowerEdit->setText(info.getBridgeTower());
+	ui.structureAboveArchEdit->setText(info.getStructureAboveArch());
+	ui.mainCableEdit->setText(info.getMainCable());
+	ui.bridgeSurfaceCoatingEdit->setText(info.getBridgeSurfaceCoating());
+	ui.sidewalkEdit->setText(info.getSidewalk());
+	ui.lightingEdit->setText(info.getLighting());
+	ui.coneSlopeEdit->setText(info.getConeSlope());
+	ui.wingWallEdit->setText(info.getWingWall());
+	ui.foundationEdit->setText(info.getFoundation());
+	ui.bearingEdit->setText(info.getBearing());
+	ui.crashBarrierEdit->setText(info.getCrashBarrier());
+	ui.beaconEdit->setText(info.getBeacon());
+}

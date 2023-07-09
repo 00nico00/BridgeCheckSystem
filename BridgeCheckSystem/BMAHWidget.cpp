@@ -59,3 +59,11 @@ void BMAHWidget::clearEdits() {
 	ui.resultEdit->clear();
 	ui.remedialMeasuresEdit->clear();
 }
+
+void BMAHWidget::receive_BMAH_info(const BMAH& info) {
+	ui.assessmentTimeEdit->setDateTime(info.getAssessmentTime());
+	ui.typeOption->setCurrentText(BMAH::inspectionTypeToStr[info.getType()]);
+	ui.resultEdit->setText(info.getResult());
+	ui.remedialMeasuresEdit->setText(info.getRemedialMeasures());
+	ui.nextInspectionTimeEdit->setDateTime(info.getNextInspectionTime());
+}

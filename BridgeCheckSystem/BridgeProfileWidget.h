@@ -38,8 +38,10 @@ signals:
 	void send_BTI_info(const BTI& info);
 	void send_BSInfo_info(const BSInfo& info);
 	void send_BRD_info(const BRD& info);
+	void send_BMAH_info(const BMAH& info);
 	void send_MDR_info(const MDR& info);
 	void send_Other_info(const Other& info);
+	void trigger_reloadBridgeNames();
 
 public:
 	BridgeProfileWidget(const QString& mode, QWidget* parent = nullptr);

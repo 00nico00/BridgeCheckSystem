@@ -54,7 +54,7 @@ std::optional<BSInfo> BSInfoDao::queryBSInfo(const QString& bridgeNumber) {
 	if (query.exec() && query.next()) {
 		return BSInfo(
 			query.value("mainGirder").toString(),
-			query.value("maiArchRib").toString(),
+			query.value("mainArchRib").toString(),
 			query.value("bridgeTower").toString(),
 			query.value("structureAboveArch").toString(),
 			query.value("mainCable").toString(),

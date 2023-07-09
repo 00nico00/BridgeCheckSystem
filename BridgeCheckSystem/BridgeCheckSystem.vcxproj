@@ -102,6 +102,9 @@
     <ClCompile Include="BTI.cpp" />
     <ClCompile Include="BTIDao.cpp" />
     <ClCompile Include="BTIWidget.cpp" />
+    <ClCompile Include="InitialInspection.cpp" />
+    <ClCompile Include="InitialInspectionDao.cpp" />
+    <ClCompile Include="InitialInspectionWidget.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MDR.cpp" />
     <ClCompile Include="MDRDao.cpp" />
@@ -116,6 +119,7 @@
     <QtUic Include="BridgeProfileWidget.ui" />
     <QtUic Include="BSInfoWidget.ui" />
     <QtUic Include="BTIWidget.ui" />
+    <QtUic Include="InitialInspectionWidget.ui" />
     <QtUic Include="Login.ui" />
     <QtMoc Include="Login.h" />
     <ClCompile Include="ADMID.cpp" />
@@ -145,7 +149,11 @@
     <ClInclude Include="BTI.h" />
     <ClInclude Include="BTIDao.h" />
     <QtMoc Include="BTIWidget.h" />
+    <ClInclude Include="callJsFunc.hpp" />
     <ClInclude Include="DatabaseManager.hpp" />
+    <ClInclude Include="InitialInspection.h" />
+    <ClInclude Include="InitialInspectionDao.h" />
+    <QtMoc Include="InitialInspectionWidget.h" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MDRDao.h" />
     <QtMoc Include="MDRWidget.h" />

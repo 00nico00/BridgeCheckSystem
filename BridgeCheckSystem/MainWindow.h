@@ -6,6 +6,9 @@
 #include "ui_MainWindow.h"
 #include "wke.h"
 #include "BridgeProfileWidget.h"
+#include "callJsFunc.hpp"
+#include "InitialInspectionWidget.h"
+#include "InitialInspectionDao.h"
 
 class MainWindow : public QWidget
 {
@@ -24,6 +27,9 @@ signals:
 		const MDR& mdr,
 		const Other& other
 	);
+	// to InitialInspectionWidget
+	void send_bridgeName_update(const QString& name);
+	void send_bridgeName_new(const QString& name);
 
 public:
 	MainWindow(QWidget* parent = nullptr);
@@ -33,8 +39,13 @@ public:
 
 	void on_newProfileBtn_clicked();
 	void on_showProfileBtn_clicked();
+	void on_showInitialInspectionBtn_clicked();
 
 	void loadAllBridgeNames();
+
+	void reloadBridgeNames();
+
+	void on_bridgeNames_currentTextChanged(const QString& text);
 
 private:
 	wkeWebView webView{}; // miniblink container

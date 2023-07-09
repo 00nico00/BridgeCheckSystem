@@ -112,6 +112,15 @@
     <ClCompile Include="OtherWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InitialInspection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InitialInspectionDao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InitialInspectionWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADMID.h">
@@ -168,6 +177,15 @@
     <ClInclude Include="OtherDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="callJsFunc.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InitialInspection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InitialInspectionDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -200,6 +218,9 @@
     <QtMoc Include="OtherWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="InitialInspectionWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
@@ -227,6 +248,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="OtherWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="InitialInspectionWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
